@@ -1,11 +1,13 @@
 import sqlite3
 from flask import Flask
-from flask import render_template, request, redirect, flash
+from flask import render_template, request, redirect, flash, session
 
 import db
 import users
+import config
 
 app = Flask(__name__)
+app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
@@ -22,17 +24,42 @@ def create_user():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        flash("VIRHE: salasanat eivät ole samat")
+        flash("error: passwords do not match")
         return redirect("/register")
 
     try:
         users.create_user(username, password1)
+        user_id = users.validate_password(username, password=password1)
+        session["user_id"] = user_id
+        session["username"] = username
+        return redirect("/")
     except sqlite3.IntegrityError:
         flash("VIRHE: tunnus on jo varattu")
         return redirect("/register")
 
     return redirect("/")
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    if request.method == "GET":
+        return render_template("login.html")
+    
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+
+        user_id = users.validate_password(username, password)
+
+        if user_id:
+            session["user_id"] = user_id
+            session["username"] = username
+            return redirect("/")
+        else:
+            flash("error: wrong username or password")
+            return redirect("/login")
+
+@app.route("/logout")
+def logout():
+    del session["user_id"]
+    del session["username"]
+    return redirect("/")
