@@ -46,6 +46,7 @@
   </p>
   {% if session.user_id == event.user_id %}
   <a href="/delete_event/{{ event.id }}" class="button">delete event</a>
+  <a href="/edit_event/{{ event.id }}" class="button">edit event</a>
   {% endif %}
 </div>
 {% endfor %}

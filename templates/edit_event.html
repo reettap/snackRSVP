@@ -1,0 +1,14 @@
+<h2>editing event {{ event.title }}</h2>
+  <form action="/edit_event/{{ event.id }}" method="post">
+    <p>
+      title: <br />
+      <input type="text" name="title" value="{{ event.title }}" />
+    </p>
+    <p>
+      place: <br />
+      <input type="text" name="place" value="{{ event.place }}" />
+    </p>
+    <br />
+    <input type="submit" value="update event" class="button" />
+    <input type="submit" value="cancel" class="button" />
+  </form>
