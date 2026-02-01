@@ -20,7 +20,6 @@ $ pip install flask
 Initiate the database:
 ```
 $ sqlite3 database.db < schema.sql
-$ sqlite3 database.db < init.sql
 ```
 
 Start the app:

@@ -4,6 +4,7 @@ from flask import render_template, request, redirect, flash, session
 
 import db
 import users
+import events
 import config
 
 app = Flask(__name__)
@@ -13,6 +14,20 @@ app.secret_key = config.secret_key
 def index():
     events = db.query("SELECT * FROM events")
     return render_template("index.html", events=events)
+
+@app.route("/new_event", methods=["POST"])
+def new_event():
+    title = request.form["title"]
+    place = request.form["place"]
+    user_id = session["user_id"]
+
+    event_id = events.add_event(title, place, user_id)
+    return redirect("/event/" + str(event_id))
+
+@app.route("/event/<int:event_id>")
+def event(event_id):
+    event = events.get_event(event_id)
+    return "there is an event"
 
 @app.route("/register")
 def register():
@@ -34,7 +49,7 @@ def create_user():
         session["username"] = username
         return redirect("/")
     except sqlite3.IntegrityError:
-        flash("VIRHE: tunnus on jo varattu")
+        flash("error: the username is already reserved")
         return redirect("/register")
 
     return redirect("/")
