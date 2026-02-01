@@ -1,0 +1,2 @@
+INSERT INTO events (title, place) VALUES ('Picnic to celebrate february the 7th', 'esplanadi park');
+INSERT INTO events (title, place) VALUES ('Another picnic to celebrate february the 8th', 'esplanadi park');
