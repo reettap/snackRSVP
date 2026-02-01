@@ -16,8 +16,8 @@
       <a href="/logout" class="button">log out</a>
     </p>
     {% else %}
-    <a href="register" class="button">register</a>
-    <a href="login" class="button">log in</a>
+    <a href="/register" class="button">register</a>
+    <a href="/login" class="button">log in</a>
     {% endif %}
   </div>
   {% if session.username %}
@@ -44,6 +44,9 @@
   <p>
     this event will be organized at {{ event.place }}
   </p>
+  {% if session.user_id == event.user_id %}
+  <a href="/delete_event/{{ event.id }}" class="button">delete event</a>
+  {% endif %}
 </div>
 {% endfor %}
 

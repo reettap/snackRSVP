@@ -29,6 +29,22 @@ def event(event_id):
     event = events.get_event(event_id)
     return "there is an event"
 
+@app.route("/delete_event/<int:event_id>", methods=["GET", "POST"])
+def remove_event(event_id):
+    event = events.get_event(event_id)
+    if not event:
+        abort(404)
+
+    if request.method == "GET":
+        return render_template("delete_event.html", event=event)
+
+    if request.method == "POST":
+        if "delete" in request.form:
+            events.delete_event(event_id)
+            return redirect("/")
+        else:
+            return redirect("/event/" + str(event_id))
+
 @app.route("/register")
 def register():
     return render_template("register.html")

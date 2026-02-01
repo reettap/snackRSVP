@@ -9,3 +9,7 @@ def add_event(title, place, user_id):
 def get_event(event_id):
     sql = "SELECT id, title, place FROM events WHERE id = ?"
     return db.query(sql, [event_id])[0]
+
+def delete_event(event_id):
+    sql = "DELETE FROM events WHERE id = ?"
+    db.execute(sql, [event_id])
