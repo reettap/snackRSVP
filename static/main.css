@@ -18,9 +18,10 @@ body, html {
     padding: 40px;
 }
 
-h1 {
+h1, h1 a {
     color: #fff; /* White */
-    font-size: 3em;
+    font-size: 3rem;
+    text-decoration: none;
     font-weight: 800;
 }
 

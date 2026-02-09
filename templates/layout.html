@@ -13,7 +13,7 @@
 <body>
   <header class="header">
     <div class="header-content">
-      <h1>snackRSVP</h1>
+      <h1><a href="/">snackRSVP</a></h1>
       <div class="login">
       {% if session.username %}
       <p>
@@ -21,8 +21,11 @@
         <a href="/logout" class="button">log out</a>
       </p>
       {% else %}
-      <a href="/register" class="button">register</a>
-      <a href="/login" class="button">log in</a>
+      <p>
+        <a href="/login" class="button">log in</a> or
+        <a href="/register" class="button">register</a>
+      </p>
+
       {% endif %}
       </div>
     </div>
