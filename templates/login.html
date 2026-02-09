@@ -1,26 +1,19 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>login</title>
-  <link rel="stylesheet" href="/static/main.css">
-</head>
+{% block content %}
 
-<body>
-  <h1>login for snackRSVP</h1>
-  <div class="card">
+<div class="card">
+  <h2>login for snackRSVP</h1>
     <form action="/login" method="post">
       <p>
-        Tunnus: <br />
+        Username: <br />
         <input type="text" name="username" />
       </p>
       <p>
-        Salasana: <br />
+        Password: <br />
         <input type="password" name="password" />
       </p>
-      <input type="submit" value="Kirjaudu" />
+      <input type="submit" value="Log in" />
     </form>
-  </div>
-</body>
-
-</html>
+</div>
+{% endblock %}

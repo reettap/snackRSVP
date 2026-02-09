@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>snackRSVP</title>
+  <link rel="stylesheet" href="/static/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1>snackRSVP</h1>
+      <div class="login">
+      {% if session.username %}
+      <p>
+        logged in as {{ session.username }}
+        <a href="/logout" class="button">log out</a>
+      </p>
+      {% else %}
+      <a href="/register" class="button">register</a>
+      <a href="/login" class="button">log in</a>
+      {% endif %}
+      </div>
+    </div>
+    <nav class="nav-buttons">
+      <a class="button" href="/">Events</a>
+      <a class="button" href="/">Search</a>
+      {% if session.user_id %}
+      <a class="button" href="/">My Events</a>
+      <a class="button" href="/">New Event</a>
+      {% endif %}
+
+    </nav>
+  </header>
+
+  <div class="content">
+    {% block content %}{% endblock %}
+  </div>
+
+  <footer>
+    Events should have snacks
+  </footer>
+</body>
+
+</html>

@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>snackRSVP</title>
-  <link rel="stylesheet" href="/static/main.css">
-</head>
-
-<body>
-
-  <h1>snackRSVP</h1>
-  <div class="card">
+{% block content %}
+<div class="card">
     {% if session.username %}
     <p>
       Welcome to your snackRSVP {{ session.username }}!
@@ -50,7 +42,4 @@
   {% endif %}
 </div>
 {% endfor %}
-
-</body>
-
-</html>
+{% endblock %}
