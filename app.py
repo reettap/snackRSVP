@@ -27,7 +27,10 @@ def new_event():
 @app.route("/event/<int:event_id>")
 def event(event_id):
     event = events.get_event(event_id)
-    return "there is an event"
+    if not event:
+        abort(404)
+    return render_template("event.html", event=event)
+    
 
 @app.route("/delete_event/<int:event_id>", methods=["GET", "POST"])
 def remove_event(event_id):

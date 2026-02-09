@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="card">
+  <h2>{{ event.title }}</h2>
+  <p>📌 {{ event.place }}</p>
+  <h3>event description</h3>
+  <p>Event description event description event description event description event description event description event description event description 
+    event description event description event description event description event description event description event description event description event description 
+    event description event description event description event description event description 
+  </p>
+  <p>Event id {{ event.id }}</p>
+  <p>organizer: {{ event.user_id }}</p>
+  <h3>RSVPs</h3>
+  <ul>
+    <li>Example Person</li>
+    <li>Example Person</li>
+    <li>Example Person</li>
+    <li>Example Person</li>
+  </ul>
+  <h3>Snacks</h3>
+  <p>This is what the confirmed attendees are planning to bring:</p>
+  <ul>
+    <li>Example snack</li>
+    <li>Example snack</li>
+    <li>Example snack</li>
+    <li>Example snack</li>
+  </ul>
+  <h3>Dietary needs and preferences to consider</h3>
+  <ul>
+    <li>Vegan</li>
+    <li>Don't like green veggies</li>
+    <li>Allergic to fish and uncooked tomato</li>
+  </ul>  
+</div>
+
+
+{% if session.user_id == event.user_id %}
+<div class="card">
+  <h2>Manage event</h2>
+  <p>This is your event. You can delete it, edit it, and see more info of the attendees.</p>
+  <a href="/delete_event/{{ event.id }}" class="button">delete event</a>
+  <a href="/edit_event/{{ event.id }}" class="button">edit event</a>
+  <h3>RSVPs</h3>
+  <ul>
+    <li>Example Person</li>
+    <li>Example Person</li>
+    <li>Example Person</li>
+    <li>Example Person</li>
+  </ul>
+</div>
+{% endif %}
+
+{% if session.username %}
+<form class="card">
+  <h2>RSVP now</h2>
+    <p>TODO: multiple choice: YES/MAYBE/NO</p>
+    <p>
+      name: <br />
+      <input type="text" name="name" />
+    </p>
+    <p>TODO: option to hide name from others than organizer</p>
+    <p>
+      snacks I'll bring: <br />
+      <input type="text" name="place" />
+    </p>
+    <p>
+      dietary needs and preferences: <br />
+      <input type="text" name="place" />
+    </p>
+    <p>
+      greetings to the host: <br />
+      <input type="text" name="name" />
+    </p>
+    <br />
+    <input type="submit" value="send RSVP" class="button" />
+</form>
+<div class="card"> 
+  <h2>my RSVP</h2>
+  <p>if logged in and already RSVP'd, show my details and option to edit RSVP</p>
+</div>
+{% else %}
+<div class="card">
+  <h3>log in or register to RSVP!</h3>
+  <a href="/register" class="button">register</a>
+  <a href="/login" class="button">log in</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -80,7 +80,7 @@ a {
     box-shadow: 0 4px 8px rgba(66, 33, 99, 0.5); /* Purple shadow on hover */
 }
 
-.card h2, .card h3 {
+.card h2 {
     margin-top: 0; /* Remove top margin for card title */
 }
 
