@@ -44,6 +44,8 @@ def remove_event(event_id):
     event = events.get_event(event_id)
     if not event:
         abort(404)
+    if event["user_id"] != session["user_id"]:
+        abort(403)
 
     if request.method == "GET":
         return render_template("delete_event.html", event=event)
