@@ -12,8 +12,15 @@ app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
-    events = db.query("SELECT * FROM events")
-    return render_template("index.html", events=events)
+    events_list = events.get_events()
+    return render_template("index.html", events=events_list)
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.args.get("query")
+    results = events.search(query) if query else events.get_events()
+    return render_template("search.html", events=results, query=query)
+        
 
 @app.route("/new_event", methods=["POST"])
 def new_event():

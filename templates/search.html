@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<form action="/search" method="get" class="card">
+  <h2>Events search</h2>
+  <p>
+    Search by title: <br />
+    {% if query %}
+    <input type="text" name="query" value="{{ query }}" />
+    {% else %}
+    <input type="text" name="query" />
+    {% endif %}
+  </p>
+  <br />
+  <input type="submit" value="search" class="button" />
+</form>
+
+{% if events == [] %}
+<div class="card">
+  <p>
+    No results for search {{ query }}
+  </p>
+</div>
+{% endif %}
+
+{% for event in events %}
+<div class="card">
+  <h2>
+    {{ event.title }}
+    {% if session.user_id == event.user_id %}
+    (my event)
+    {% endif %}
+    </h2>
+  <p>
+    this event will be organized at {{ event.place }}
+  </p>
+  
+  {% if session.user_id == event.user_id %}
+  <a href="/event/{{ event.id }}" class="button">Manage event</a>
+  {% else %}
+  <a href="/event/{{ event.id }}" class="button">Read more and RSVP</a>
+  {% endif %}
+</div>
+{% endfor %}
+{% endblock %}
