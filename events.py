@@ -8,8 +8,13 @@ def add_event(title, place, user_id):
 
 def get_event(event_id):
     sql = "SELECT id, title, place, user_id FROM events WHERE id = ?"
-    return db.query(sql, [event_id])[0]
+    result = db.query(sql, [event_id])
+    return result[0] if result else None
 
 def delete_event(event_id):
     sql = "DELETE FROM events WHERE id = ?"
     db.execute(sql, [event_id])
+
+def update_event(event_id, title, place):
+    sql = "UPDATE events SET title = ?, place = ? WHERE id = ?"
+    db.execute(sql, [title, place, event_id])

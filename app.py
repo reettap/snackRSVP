@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import render_template, request, redirect, flash, session
+from flask import render_template, request, redirect, flash, session, abort
 
 import db
 import users
@@ -53,13 +53,20 @@ def edit_event(event_id):
     event = events.get_event(event_id)
     if not event:
         abort(404)
+    if event["user_id"] != session["user_id"]:
+        abort(403)
 
     if request.method == "GET":
         return render_template("edit_event.html", event=event)
 
     if request.method == "POST":
-        if "update event" in request.form:
-            events.update_event(event_id)
+        title = request.form["title"]
+        events.update_event(
+            event_id, 
+            title=request.form["title"],
+            place=request.form["place"],
+        )
+        print('updated successfully')
 
         return redirect("/event/" + str(event_id))
 
