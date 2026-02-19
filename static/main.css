@@ -130,3 +130,7 @@ footer {
     padding: 20px 30px;
     position: relative;
 }
+
+.material-symbols-outlined {
+    vertical-align: bottom; /* align inline icons */
+}
