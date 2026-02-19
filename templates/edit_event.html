@@ -12,6 +12,7 @@
     <input type="text" name="place" value="{{ event.place }}" />
   </p>
   <br />
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" value="update event" class="button" />
   <input type="submit" value="cancel" class="button" />
   </form>

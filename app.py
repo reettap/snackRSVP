@@ -1,4 +1,5 @@
 import sqlite3
+import secrets
 from flask import Flask
 from flask import render_template, request, redirect, flash, session, abort
 
@@ -36,6 +37,7 @@ def new_event():
         return render_template("new_event.html")
 
     if request.method == "POST":
+        check_csrf()
         title = request.form["title"]
         place = request.form["place"]
         user_id = session["user_id"]
@@ -64,6 +66,7 @@ def remove_event(event_id):
         return render_template("delete_event.html", event=event)
 
     if request.method == "POST":
+        check_csrf()
         if "delete" in request.form:
             events.delete_event(event_id)
             return redirect("/")
@@ -82,6 +85,7 @@ def edit_event(event_id):
         return render_template("edit_event.html", event=event)
 
     if request.method == "POST":
+        check_csrf()
         title = request.form["title"]
         events.update_event(
             event_id, 
@@ -139,6 +143,7 @@ def login():
         if user_id:
             session["user_id"] = user_id
             session["username"] = username
+            session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
         else:
             flash("error: wrong username or password")
@@ -149,3 +154,9 @@ def logout():
     del session["user_id"]
     del session["username"]
     return redirect("/")
+
+def check_csrf():
+    if "csrf_token" not in request.form:
+        abort(403)
+    if request.form["csrf_token"] != session["csrf_token"]:
+        abort(403)
