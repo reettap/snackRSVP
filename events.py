@@ -16,6 +16,11 @@ def get_events():
     result = db.query(sql)
     return result
 
+def get_events_by_organizer(user_id):
+    sql = "SELECT id, title, place, user_id FROM events WHERE user_id = ?"
+    result = db.query(sql, [user_id])
+    return result
+
 def search(query):
     sql = """SELECT id, title, place, user_id
              FROM events

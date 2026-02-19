@@ -79,6 +79,13 @@ def edit_event(event_id):
 
         return redirect("/event/" + str(event_id))
 
+@app.route("/user/<int:user_id>")
+def user(user_id):
+    user = users.get_user(user_id)
+    events_organized = events.get_events_by_organizer(user_id)
+    if not user:
+        abort(404)
+    return render_template("user.html", user=user, events=events_organized)
 
 @app.route("/register")
 def register():

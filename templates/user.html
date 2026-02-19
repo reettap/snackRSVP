@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="card">
+  <h2>User: {{ user.username }}</h2>
+  <p>
+    details about the user
+  </p>
+
+</div>
+
+{% if events == [] %}
+<div class="card">
+  <p>
+    No events found for this user.
+  </p>
+</div>
+{% endif %}
+
+{% for event in events %}
+<div class="card">
+  <h2>
+    {{ event.title }}
+  </h2>
+  <p>
+    this event will be organized at {{ event.place }}
+  </p>
+  
+  {% if session.user_id == event.user_id %}
+  <a href="/event/{{ event.id }}" class="button">Manage event</a>
+  {% else %}
+  <a href="/event/{{ event.id }}" class="button">Read more and RSVP</a>
+  {% endif %}
+</div>
+{% endfor %}
+{% endblock %}
