@@ -24,7 +24,7 @@
     {{ event.title }}
   </h3>
   <p>
-    this event will be organized at {{ event.place }}
+    this event will be organized at {{ event.location }}
   </p>
   
   {% if session.user_id == event.user_id %}
@@ -43,7 +43,7 @@
     {{ event.title }}
   </h3>
   <p>
-    this event will be organized at {{ event.place }}
+    this event will be organized at {{ event.location }}
   </p>
   
   {% if session.user_id == event.user_id %}

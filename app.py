@@ -39,10 +39,10 @@ def new_event():
     if request.method == "POST":
         check_csrf()
         title = request.form["title"]
-        place = request.form["place"]
+        location = request.form["location"]
         user_id = session["user_id"]
 
-        event_id = events.add_event(title, place, user_id)
+        event_id = events.add_event(title, location, user_id)
         return redirect("/event/" + str(event_id))
 
 @app.route("/event/<int:event_id>")
@@ -90,7 +90,7 @@ def edit_event(event_id):
         events.update_event(
             event_id, 
             title=request.form["title"],
-            place=request.form["place"],
+            location=request.form["location"],
         )
         print('updated successfully')
 
