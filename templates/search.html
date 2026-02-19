@@ -25,13 +25,13 @@
 {% endif %}
 
 {% for event in events %}
-<div class="card">
-  <h2>
+<div class="card event">
+  <h3>
     {{ event.title }}
     {% if session.user_id == event.user_id %}
     (my event)
     {% endif %}
-    </h2>
+    </h3>
   <p>
     this event will be organized at {{ event.place }}
   </p>

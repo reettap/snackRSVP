@@ -22,14 +22,18 @@ def search():
     return render_template("search.html", events=results, query=query)
         
 
-@app.route("/new_event", methods=["POST"])
+@app.route("/new_event", methods=["GET", "POST"])
 def new_event():
-    title = request.form["title"]
-    place = request.form["place"]
-    user_id = session["user_id"]
+    if request.method == "GET":
+        return render_template("new_event.html")
 
-    event_id = events.add_event(title, place, user_id)
-    return redirect("/event/" + str(event_id))
+    if request.method == "POST":
+        title = request.form["title"]
+        place = request.form["place"]
+        user_id = session["user_id"]
+
+        event_id = events.add_event(title, place, user_id)
+        return redirect("/event/" + str(event_id))
 
 @app.route("/event/<int:event_id>")
 def event(event_id):

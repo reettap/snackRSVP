@@ -2,44 +2,30 @@
 
 {% block content %}
 <div class="card">
-    {% if session.username %}
-    <p>
-      Welcome to your snackRSVP {{ session.username }}!
-      <a href="/logout" class="button">log out</a>
-    </p>
-    {% else %}
-    <h2>Welcome to snackRSVP!</h2>
-    <p>
-      <a href="/login" class="button">log in</a>
-      or
-      <a href="/register" class="button">register</a>
-      to create events and RSVP!
-      </p>
-    {% endif %}
-  </div>
   {% if session.username %}
-  <form action="/new_event" method="post" class="card">
-    <h3>Add new event</h3>
-      <p>
-        title: <br />
-        <input type="text" name="title" />
-      </p>
-      <p>
-        place: <br />
-        <input type="text" name="place" />
-      </p>
-      <br />
-      <input type="submit" value="create event" class="button" />
-  </form>
+  <p>
+    Welcome to your snackRSVP {{ session.username }}!
+    <a href="/logout" class="button">log out</a>
+  </p>
+  {% else %}
+  <h2>Welcome to snackRSVP!</h2>
+  <p>
+    <a href="/login" class="button">log in</a>
+    or
+    <a href="/register" class="button">register</a>
+    to create events and RSVP!
+  </p>
   {% endif %}
+  </div>
+
 {% for event in events %}
-<div class="card">
-  <h2>
+<div class="card event">
+  <h3>
     {{ event.title }}
     {% if session.user_id == event.user_id %}
     (my event)
     {% endif %}
-    </h2>
+  </h3>
   <p>
     this event will be organized at {{ event.place }}
   </p>

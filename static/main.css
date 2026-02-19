@@ -89,6 +89,13 @@ a {
     margin: 10px 0 0; /* Margin for paragraph */
 }
 
+.event h3 {
+    margin-top: 0;
+}
+.card .button {
+    margin-left: 0;
+}
+
 .header, footer {
     background-color: #6a5acd;
     color: white;

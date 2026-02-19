@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+{% if session.username %}
+<form action="/new_event" method="post" class="card">
+  <h2>Add new event</h2>
+  <p>
+    title: <br />
+    <input type="text" name="title" />
+  </p>
+  <p>
+    place: <br />
+    <input type="text" name="place" />
+  </p>
+  <br />
+  <input type="submit" value="create event" class="button" />
+</form>
+{% else %}
+<div class="card">
+  <p>
+  <a href="/login" class="button">log in</a>
+  or
+  <a href="/register" class="button">register</a>
+  to create a new event.
+  </p>
+</div>
+{% endif %}
+
+{% endblock %}
