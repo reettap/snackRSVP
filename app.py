@@ -20,7 +20,15 @@ def search():
     query = request.args.get("query")
     results = events.search(query) if query else events.get_events()
     return render_template("search.html", events=results, query=query)
-        
+
+@app.route("/my_events")
+def my_events():
+    user_id = session["user_id"]
+    if not user_id:
+        abort(404)
+    organizing = events.get_events_by_organizer(user_id)
+    attending = []
+    return render_template("my_events.html", organizing=organizing, attending=attending)
 
 @app.route("/new_event", methods=["GET", "POST"])
 def new_event():
@@ -40,7 +48,8 @@ def event(event_id):
     event = events.get_event(event_id)
     if not event:
         abort(404)
-    return render_template("event.html", event=event)
+    organizer = users.get_user(event["user_id"])
+    return render_template("event.html", event=event, organizer=organizer)
     
 
 @app.route("/delete_event/<int:event_id>", methods=["GET", "POST"])

@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>My events</h2>
+
+{% if organizing == [] and attending == [] %}
+<div class="card">
+  <p>
+    You don't have any events yet. 
+  </p>
+  <p>
+    <a href="/new_event" class="button">create a new event</a>
+    or
+    <a href="/search" class="button">find an event</a>
+    to RSVP!
+  </p>
+</div>
+{% endif %}
+
+{% for event in organizing %}
+<div class="card event">
+  <h3>
+    {{ event.title }}
+  </h3>
+  <p>
+    this event will be organized at {{ event.place }}
+  </p>
+  
+  {% if session.user_id == event.user_id %}
+  <a href="/event/{{ event.id }}" class="button">Manage event</a>
+  {% else %}
+  <a href="/event/{{ event.id }}" class="button">Read more and RSVP</a>
+  {% endif %}
+</div>
+{% endfor %}
+
+{% if not attending == [] %}
+<h2>My RSVPs</h2>
+{% for event in organizing %}
+<div class="card event">
+  <h3>
+    {{ event.title }}
+  </h3>
+  <p>
+    this event will be organized at {{ event.place }}
+  </p>
+  
+  {% if session.user_id == event.user_id %}
+  <a href="/event/{{ event.id }}" class="button">Manage event</a>
+  {% else %}
+  <a href="/event/{{ event.id }}" class="button">Read more and RSVP</a>
+  {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

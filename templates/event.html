@@ -11,7 +11,9 @@
     event description event description event description event description event description 
   </p>
   <p>Event id {{ event.id }}</p>
-  <p>organizer: {{ event.user_id }}</p>
+  <p>organized by
+    <a href="/user/{{ event.user_id }}">{{ organizer.username }}</a>
+  </p>
   <h3>RSVPs</h3>
   <ul>
     <li>Example Person</li>
