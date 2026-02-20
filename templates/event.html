@@ -15,24 +15,22 @@
   </p>
   <h3>RSVPs</h3>
   <ul>
-    <li>Example Person</li>
-    <li>Example Person</li>
-    <li>Example Person</li>
-    <li>Example Person</li>
+    {% for a in attendees %}
+    <li>{{a.username}}</li>
+    {% endfor %}
   </ul>
   <h3>Snacks</h3>
   <p>This is what the confirmed attendees are planning to bring:</p>
   <ul>
-    <li>Example snack</li>
-    <li>Example snack</li>
-    <li>Example snack</li>
-    <li>Example snack</li>
+    {% for s in snacks %}
+    <li>{{s.snack}}</li>
+    {% endfor %}
   </ul>
   <h3>Dietary needs and preferences to consider</h3>
   <ul>
-    <li>Vegan</li>
-    <li>Don't like green veggies</li>
-    <li>Allergic to fish and uncooked tomato</li>
+    {% for d in diets %}
+    <li>{{d.diet}}</li>
+    {% endfor %}
   </ul>  
 </div>
 
@@ -44,12 +42,15 @@
   <a href="/edit_event/{{ event.id }}" class="button">edit event</a>
   <a href="/delete_event/{{ event.id }}" class="button">delete event</a>
   <h3>RSVPs</h3>
+  {% for r in responses %}
+  <h4>{{ r.username }}</h4>
   <ul>
-    <li>Example Person</li>
-    <li>Example Person</li>
-    <li>Example Person</li>
-    <li>Example Person</li>
+    <li>status: {{ r.status }}</li>
+    <li>bringing: {{ r.snack }}</li>
+    <li>dietary requirements: {{ r.diet }}</li>
+    <li>greetings: {{ r.greetings }}</li>
   </ul>
+  {% endfor %}
 </div>
 {% endif %}
 
@@ -86,10 +87,12 @@
 <div class="card"> 
   <h2>my RSVP</h2>
   <p>You have responded with the following details:</p>
-  <p>Status: {{rsvp.status}}</p>
-  <p>Dietary requirements: {{rsvp.diet}}</p>
-  <p>Bringing: {{rsvp.snack}}</p>
-  <p>Greetings to the host: {{rsvp.greetings}}</p>
+  <ul>
+    <li>status: {{ rsvp.status }}</li>
+    <li>bringing: {{ rsvp.snack }}</li>
+    <li>dietary requirements: {{ rsvp.diet }}</li>
+    <li>greetings: {{ rsvp.greetings }}</li>
+  </ul>
 </div>
 {% else %}
 <div class="card">

@@ -52,9 +52,14 @@ def event(event_id):
         abort(404)
     organizer = users.get_user(event["user_id"])
     rsvp = events.get_rsvp(event["user_id"], session["user_id"])
+    attendees = events.get_attendees_by_event(event_id)
+    snacks = events.get_snacks_by_event(event_id)
+    diets = events.get_diets_by_event(event_id)
+    responses = events.get_rsvps_by_event(event_id)
     return render_template("event.html",
         event=event, organizer=organizer,
-        rsvp=rsvp, )
+        rsvp=rsvp, attendees=attendees,
+        snacks=snacks, diets=diets, responses=responses)
     
 
 @app.route("/delete_event/<int:event_id>", methods=["GET", "POST"])
@@ -101,7 +106,6 @@ def edit_event(event_id):
 @app.route("/new_rsvp", methods=["POST"])
 def new_rsvp():
     check_csrf()
-    
 
     status = request.form["status"]
     diet = request.form["diet"]
@@ -109,10 +113,8 @@ def new_rsvp():
     greetings = request.form["greetings"]
     event_id = request.form["event_id"]
     user_id = session["user_id"]
-    print("hello")
 
     events.add_rsvp(status, diet, snack, greetings, event_id, user_id)
-    print("hello")
 
     return redirect("/event/" + str(event_id))
 

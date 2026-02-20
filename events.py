@@ -46,3 +46,38 @@ def get_rsvp(event_id, user_id):
              FROM rsvps WHERE event_id = ? AND user_id = ?"""
     result = db.query(sql, [event_id, user_id])
     return result[0] if result else None
+
+def get_rsvps_by_event(event_id):
+    sql = """SELECT 
+                r.status, 
+                r.diet, 
+                r.snack, 
+                r.greetings, 
+                r.event_id, 
+                r.user_id,
+                u.username 
+             FROM rsvps as r JOIN users as u  ON u.id = r.user_id
+             WHERE r.event_id = ?"""
+    result = db.query(sql, [event_id])
+    return result
+
+def get_snacks_by_event(event_id):
+    sql = """SELECT snack
+             FROM rsvps
+             WHERE event_id = ?"""
+    result = db.query(sql, [event_id])
+    return result
+
+def get_diets_by_event(event_id):
+    sql = """SELECT diet
+             FROM rsvps
+             WHERE event_id = ?"""
+    result = db.query(sql, [event_id])
+    return result
+
+def get_attendees_by_event(event_id):
+    sql = """SELECT DISTINCT u.username 
+             FROM rsvps as r JOIN users as u  ON u.id = r.user_id
+             WHERE r.event_id = ?"""
+    result = db.query(sql, [event_id])
+    return result
