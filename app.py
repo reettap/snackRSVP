@@ -28,7 +28,7 @@ def my_events():
     if not user_id:
         abort(404)
     organizing = events.get_events_by_organizer(user_id)
-    attending = []
+    attending = events.get_attending_events_for_user(user_id)
     return render_template("my_events.html", organizing=organizing, attending=attending)
 
 @app.route("/new_event", methods=["GET", "POST"])
@@ -122,7 +122,7 @@ def new_rsvp():
 def user(user_id):
     user = users.get_user(user_id)
     organizing = events.get_events_by_organizer(user_id)
-    attending = []
+    attending = events.get_attending_events_for_user(user_id)
     if not user:
         abort(404)
     return render_template("user.html", user=user, organizing=organizing, attending=attending)

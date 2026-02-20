@@ -76,8 +76,17 @@ def get_diets_by_event(event_id):
     return result
 
 def get_attendees_by_event(event_id):
-    sql = """SELECT DISTINCT u.username 
+    sql = """SELECT DISTINCT u.username
              FROM rsvps as r JOIN users as u  ON u.id = r.user_id
              WHERE r.event_id = ?"""
     result = db.query(sql, [event_id])
+    return result
+
+def get_attending_events_for_user(user_id):
+    sql = """SELECT
+                 DISTINCT r.event_id,
+                 e.id, e.title, e.location, e.user_id
+             FROM rsvps as r JOIN events as e  ON e.id = r.event_id
+             WHERE r.user_id = ?"""
+    result = db.query(sql, [user_id])
     return result
