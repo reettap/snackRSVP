@@ -35,3 +35,14 @@ def delete_event(event_id):
 def update_event(event_id, title, location):
     sql = "UPDATE events SET title = ?, location = ? WHERE id = ?"
     db.execute(sql, [title, location, event_id])
+
+def add_rsvp(status, diet, snack, greetings, event_id, user_id):
+    sql = """INSERT INTO rsvps (status, diet, snack, greetings, event_id, user_id) 
+             VALUES (?, ?, ?, ?, ?, ?)"""
+    db.execute(sql, [status, diet, snack, greetings, event_id, user_id])
+
+def get_rsvp(event_id, user_id):
+    sql = """SELECT status, diet, snack, greetings, event_id, user_id 
+             FROM rsvps WHERE event_id = ? AND user_id = ?"""
+    result = db.query(sql, [event_id, user_id])
+    return result[0] if result else None

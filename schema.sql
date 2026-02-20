@@ -14,7 +14,7 @@ CREATE TABLE events (
     user_id INTEGER REFERENCES users
 );
 
-CREATE TABLE rsvp (
+CREATE TABLE rsvps (
     id INTEGER PRIMARY KEY,
     status INTEGER,
     diet TEXT,

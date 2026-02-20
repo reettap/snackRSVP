@@ -51,7 +51,10 @@ def event(event_id):
     if not event:
         abort(404)
     organizer = users.get_user(event["user_id"])
-    return render_template("event.html", event=event, organizer=organizer)
+    rsvp = events.get_rsvp(event["user_id"], session["user_id"])
+    return render_template("event.html",
+        event=event, organizer=organizer,
+        rsvp=rsvp, )
     
 
 @app.route("/delete_event/<int:event_id>", methods=["GET", "POST"])
@@ -92,9 +95,26 @@ def edit_event(event_id):
             title=request.form["title"],
             location=request.form["location"],
         )
-        print('updated successfully')
 
         return redirect("/event/" + str(event_id))
+
+@app.route("/new_rsvp", methods=["POST"])
+def new_rsvp():
+    check_csrf()
+    
+
+    status = request.form["status"]
+    diet = request.form["diet"]
+    snack = request.form["snack"]
+    greetings = request.form["greetings"]
+    event_id = request.form["event_id"]
+    user_id = session["user_id"]
+    print("hello")
+
+    events.add_rsvp(status, diet, snack, greetings, event_id, user_id)
+    print("hello")
+
+    return redirect("/event/" + str(event_id))
 
 @app.route("/user/<int:user_id>")
 def user(user_id):

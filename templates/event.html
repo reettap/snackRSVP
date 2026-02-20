@@ -5,14 +5,13 @@
 <div class="card">
   <h2>{{ event.title }}</h2>
   <p>📌 {{ event.location }}</p>
+  <p>organized by
+    <a href="/user/{{ event.user_id }}">{{ organizer.username }}</a>
+  </p>
   <h3>event description</h3>
   <p>Event description event description event description event description event description event description event description event description 
     event description event description event description event description event description event description event description event description event description 
     event description event description event description event description event description 
-  </p>
-  <p>Event id {{ event.id }}</p>
-  <p>organized by
-    <a href="/user/{{ event.user_id }}">{{ organizer.username }}</a>
   </p>
   <h3>RSVPs</h3>
   <ul>
@@ -42,8 +41,8 @@
 <div class="card">
   <h2>Manage event</h2>
   <p>This is your event. You can delete it, edit it, and see more info of the attendees.</p>
-  <a href="/delete_event/{{ event.id }}" class="button">delete event</a>
   <a href="/edit_event/{{ event.id }}" class="button">edit event</a>
+  <a href="/delete_event/{{ event.id }}" class="button">delete event</a>
   <h3>RSVPs</h3>
   <ul>
     <li>Example Person</li>
@@ -54,33 +53,43 @@
 </div>
 {% endif %}
 
-{% if session.username %}
-<form class="card">
+{% if session.user_id and not rsvp %}
+<form class="card" action="/new_rsvp" method="post">
   <h2>RSVP now</h2>
-    <p>TODO: multiple choice: YES/MAYBE/NO</p>
-    <p>
-      name: <br />
-      <input type="text" name="name" />
+  <fieldset>
+    <legend>RSVP (are you coming?):</legend>
+    <label for="yes">Yes</label>
+    <input type="radio" name="status" id="yes" value="1" checked /> <br />
+    <label for="maybe">Maybe</label>
+    <input type="radio" name="status" id="maybe" value="2" /> <br />
+    <label for="no">No</label>
+    <input type="radio" name="status" id="no" value="3" />
+  </fieldset>
+  <p>
+    <label for="diet">Dietary requirements and preferences:</label> <br />
+    <textarea name="diet" id="diet" rows="4" cols="60" maxlength="200"></textarea>
     </p>
-    <p>TODO: option to hide name from others than organizer</p>
-    <p>
-      snacks I'll bring: <br />
-      <input type="text" name="place" />
+  <p>
+    <label for="snack">Snacks I'll bring:</label> <br />
+    <textarea name="snack" id="snack" rows="4" cols="60" maxlength="200"></textarea>
     </p>
     <p>
-      dietary needs and preferences: <br />
-      <input type="text" name="place" />
+    <label for="greetings">Greetings to the host:</label>: <br />
+    <textarea name="greetings" id="greetings" rows="4" cols="60" maxlength="200"></textarea>
     </p>
-    <p>
-      greetings to the host: <br />
-      <input type="text" name="name" />
-    </p>
-    <br />
-    <input type="submit" value="send RSVP" class="button" />
+<br />
+  <input type="hidden" name="event_id" value="{{ event.id }}" />
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+  <input type="submit" value="Send response" class="button" />
 </form>
+{% elif session.user_id and rsvp %}
 <div class="card"> 
   <h2>my RSVP</h2>
-  <p>if logged in and already RSVP'd, show my details and option to edit RSVP</p>
+  <p>You have responded with the following details:</p>
+  <p>Status: {{rsvp.status}}</p>
+  <p>Dietary requirements: {{rsvp.diet}}</p>
+  <p>Bringing: {{rsvp.snack}}</p>
+  <p>Greetings to the host: {{rsvp.greetings}}</p>
 </div>
 {% else %}
 <div class="card">
