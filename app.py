@@ -121,10 +121,11 @@ def new_rsvp():
 @app.route("/user/<int:user_id>")
 def user(user_id):
     user = users.get_user(user_id)
-    events_organized = events.get_events_by_organizer(user_id)
+    organizing = events.get_events_by_organizer(user_id)
+    attending = []
     if not user:
         abort(404)
-    return render_template("user.html", user=user, events=events_organized)
+    return render_template("user.html", user=user, organizing=organizing, attending=attending)
 
 @app.route("/register")
 def register():
