@@ -59,24 +59,24 @@
   <fieldset>
     <legend>RSVP (are you coming?):</legend>
     <label for="yes">Yes</label>
-    <input type="radio" name="status" id="yes" value="1" checked /> <br />
+    <input type="radio" name="status" id="yes" value="1" checked />
     <label for="maybe">Maybe</label>
-    <input type="radio" name="status" id="maybe" value="2" /> <br />
+    <input type="radio" name="status" id="maybe" value="2" />
     <label for="no">No</label>
     <input type="radio" name="status" id="no" value="3" />
   </fieldset>
-  <p>
+  <div class="form-group">
     <label for="diet">Dietary requirements and preferences:</label> <br />
     <textarea name="diet" id="diet" rows="4" cols="60" maxlength="200"></textarea>
-  </p>
-  <p>
+  </div>
+  <div class="form-group">
     <label for="snack">Snacks I'll bring:</label> <br />
     <textarea name="snack" id="snack" rows="4" cols="60" maxlength="200"></textarea>
-  </p>
-  <p>
+</div>
+<div class="form-group">
     <label for="greetings">Greetings to the host:</label>: <br />
     <textarea name="greetings" id="greetings" rows="4" cols="60" maxlength="200"></textarea>
-  </p>
+</div>
 <br />
   <input type="hidden" name="event_id" value="{{ event.id }}" />
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />

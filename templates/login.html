@@ -5,15 +5,15 @@
 <div class="card">
   <h2>login for snackRSVP</h2>
   <form action="/login" method="post">
-    <p>
-      Username: <br />
-      <input type="text" name="username" />
-    </p>
-    <p>
-      Password: <br />
-      <input type="password" name="password" />
-    </p>
-    <input type="submit" value="Log in" />
+    <div class="form-group">
+      <label for="username">Username:</label> <br />
+      <input type="text" name="username" id="username" maxlength="30" required />
+    </div>
+      <div class="form-group">
+      <label for="password">Password:</label> <br />
+      <input type="text" name="password" id="password" maxlength="30" required />
+    </div>
+    <input type="submit" value="Log in" class="button" />
   </form>
 </div>
 {% endblock %}

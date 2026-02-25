@@ -5,14 +5,17 @@
 
 <form action="/search" method="get" class="card">
   <h2>Events search</h2>
-  <p>
-    Search by title: <br />
-    {% if query %}
-    <input type="text" name="query" value="{{ query }}" />
-    {% else %}
-    <input type="text" name="query" />
-    {% endif %}
-  </p>
+  {% if query %}
+  <div class="form-group">
+    <label for="title">Search by title:</label> <br />
+    <input type="text" name="query" id="query" value="{{ query }}" maxlength="100" required/>
+  </div>
+  {% else %}
+  <div class="form-group">
+    <label for="title">Search by title:</label> <br />
+    <input type="text" name="query" id="query" maxlength="100" required/>
+  </div>
+  {% endif %}
   <br />
   <input type="submit" value="search" class="button" />
 </form>
