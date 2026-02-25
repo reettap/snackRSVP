@@ -145,6 +145,7 @@ def create_user():
         user_id = users.validate_password(username, password=password1)
         session["user_id"] = user_id
         session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
     except sqlite3.IntegrityError:
         flash("error: the username is already reserved")
