@@ -5,14 +5,27 @@
 {% if session.username %}
 <form action="/new_event" method="post" class="card">
   <h2>Add new event</h2>
-  <p>
-    title: <br />
-    <input type="text" name="title" />
-  </p>
-  <p>
-    location: <br />
-    <input type="text" name="location" />
-  </p>
+  <div class="form-group">
+    <label for="title">Title:</label> <br />
+    <input type="text" name="title" id="title" maxlength="100" required/>
+  </div>
+  <div class="form-group">
+    <label for="location">Location:</label> <br />
+    <input type="text" name="location" id="location" maxlength="100" required/>
+  </div>
+  <div class="form-group">
+    <label for="description">Description:</label> <br />
+    <textarea name="description" id="description" rows="4" cols="60" 
+              maxlength="1000" required></textarea>
+  </div>
+  <div class="form-group">
+    <label for="start_time">Start time:</label> <br />
+    <input type="datetime-local" name="start_time" id="start_time" required/>
+  </div>
+  <div class="form-group">
+    <label for="end_time">End time:</label> <br />
+    <input type="datetime-local" name="end_time" id="end_time" required/>
+  </div>
   <br />
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" value="create event" class="button" />

@@ -40,9 +40,14 @@ def new_event():
         check_csrf()
         title = request.form["title"]
         location = request.form["location"]
+        description = request.form["description"]
+        start_time = request.form["start_time"]
+        end_time = request.form["end_time"]
         user_id = session["user_id"]
 
-        event_id = events.add_event(title, location, user_id)
+        event_id = events.add_event(
+                            title, location, description,
+                            start_time, end_time, user_id)
         return redirect("/event/" + str(event_id))
 
 @app.route("/event/<int:event_id>")

@@ -4,6 +4,7 @@
     <div class="card event">
       <h3>{{ event.title }}</h3>
       <p>📌 {{ event.location }}</p>
+      <p>time: {{ event.start_time }} - {{ event.end_time }}</p>
       <br />
       {% if session.user_id == event.user_id %}
       <a href="/event/{{ event.id }}" class="button">Manage event</a>
