@@ -1,5 +1,7 @@
 # snackRSVP
 
+![picture of the UI](static/ui_example.png)
+
 A web app to set up events and organize who's bringing what in the table.
 
 ## features
