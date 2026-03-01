@@ -39,7 +39,7 @@ h3 {
     font-weight: 800;
 }
 
-p {
+p, input{
     color: #2f2475; /* Dark Blue */
     font-size: 1em;
 }
@@ -98,6 +98,10 @@ a {
 }
 .card .button {
     margin-left: 0;
+}
+
+.card ul {
+    margin-top: 5px;
 }
 
 /*** header, footer, navbar ***/

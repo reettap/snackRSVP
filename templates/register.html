@@ -3,19 +3,19 @@
 {% block content %}
 <form action="/createuser" method="post" class="card">
   <h2>sign up for snackRSVP</h2>
-  <p>
-    Username: <br />
-    <input type="text" name="username" />
-    </p>
-    <p>
-    Password: <br />
-    <input type="password" name="password1" />
-    </p>
-    <p>
-    Password again: <br />
-    <input type="password" name="password2" />
-    </p>
-    </br>
+  <div class="form-group">
+    <label for="username">Username:</label> <br />
+    <input type="text" name="username" id="username" maxlength="30" required />
+  </div>
+  <div class="form-group">
+    <label for="password1">Password:</label> <br />
+    <input type="text" name="password1" id="password1" maxlength="30" required />
+  </div>
+  <div class="form-group">
+    <label for="password2">Password again:</label> <br />
+    <input type="text" name="password2" id="password2" maxlength="30" required />
+  </div>
+  </br>
   <input type="submit" value="Register" class="button" />
   </form>
 {% endblock %}
