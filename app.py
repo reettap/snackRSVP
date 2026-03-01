@@ -4,7 +4,6 @@ import markupsafe
 from flask import Flask
 from flask import render_template, request, redirect, flash, session, abort
 
-import db
 import users
 import events
 import config
@@ -52,9 +51,10 @@ def new_event():
                             title, event_type, location, description,
                             start_time, end_time, user_id)
         return redirect("/event/" + str(event_id))
+    return redirect("/")
 
 @app.route("/event/<int:event_id>")
-def event(event_id):
+def show_event(event_id):
     event = events.get_event(event_id)
     if not event:
         abort(404)
@@ -73,9 +73,8 @@ def event(event_id):
     return render_template("event.html",
         event=event, organizer=organizer,
         rsvp=rsvp, attendees=attendees,
-        snacks=snacks, diets=diets, 
+        snacks=snacks, diets=diets,
         responses=responses, response_options=response_options)
-    
 
 @app.route("/delete_event/<int:event_id>", methods=["GET", "POST"])
 def remove_event(event_id):
@@ -93,8 +92,7 @@ def remove_event(event_id):
         if "delete" in request.form:
             events.delete_event(event_id)
             return redirect("/")
-        else:
-            return redirect("/event/" + str(event_id))
+        return redirect("/event/" + str(event_id))
 
 @app.route("/edit_event/<int:event_id>", methods=["GET", "POST"])
 def edit_event(event_id):
@@ -111,7 +109,7 @@ def edit_event(event_id):
     if request.method == "POST":
         check_csrf()
         events.update_event(
-            event_id, 
+            event_id,
             title=request.form["title"],
             event_type=request.form["type"],
             location=request.form["location"],
@@ -138,7 +136,7 @@ def new_rsvp():
     return redirect("/event/" + str(event_id))
 
 @app.route("/user/<int:user_id>")
-def user(user_id):
+def show_user(user_id):
     user = users.get_user(user_id)
     organizing = events.get_events_by_organizer(user_id)
     attending = events.get_attending_events_for_user(user_id)
@@ -176,7 +174,7 @@ def create_user():
 def login():
     if request.method == "GET":
         return render_template("login.html")
-    
+
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -188,9 +186,8 @@ def login():
             session["username"] = username
             session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
-        else:
-            flash("error: wrong username or password")
-            return redirect("/login")
+        flash("error: wrong username or password")
+        return redirect("/login")
 
 @app.route("/logout")
 def logout():

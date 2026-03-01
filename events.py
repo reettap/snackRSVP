@@ -2,7 +2,7 @@ import db
 
 def add_event(title, event_type, location, description,
               start_time, end_time, user_id):
-    sql = """INSERT INTO 
+    sql = """INSERT INTO
                 events (title, type, location, description, 
                         start_time, end_time, user_id) 
             VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -12,7 +12,7 @@ def add_event(title, event_type, location, description,
     return event_id
 
 def get_event(event_id):
-    sql = """SELECT id, title, type, location, description, 
+    sql = """SELECT id, title, type, location, description,
                     start_time, end_time, user_id 
              FROM events 
              WHERE id = ?"""
@@ -20,14 +20,14 @@ def get_event(event_id):
     return result[0] if result else None
 
 def get_events():
-    sql = """SELECT id, title, type, location, 
+    sql = """SELECT id, title, type, location,
                     description, start_time, end_time, user_id 
              FROM events"""
     result = db.query(sql)
     return result
 
 def get_events_by_organizer(user_id):
-    sql = """SELECT id, title, type, location, description, start_time, end_time, user_id 
+    sql = """SELECT id, title, type, location, description, start_time, end_time, user_id
              FROM events 
              WHERE user_id = ?"""
     result = db.query(sql, [user_id])
@@ -51,7 +51,7 @@ def delete_event(event_id):
     db.execute(sql, [event_id])
 
 def update_event(event_id, title, event_type, location, description, start_time, end_time):
-    sql = """UPDATE events SET 
+    sql = """UPDATE events SET
                 title = ?, 
                 type = ?,
                 location = ?,
@@ -62,18 +62,18 @@ def update_event(event_id, title, event_type, location, description, start_time,
     db.execute(sql, [title, event_type, location, description, start_time, end_time, event_id])
 
 def add_rsvp(status, diet, snack, greetings, event_id, user_id):
-    sql = """INSERT INTO rsvps (status, diet, snack, greetings, event_id, user_id) 
+    sql = """INSERT INTO rsvps (status, diet, snack, greetings, event_id, user_id)
              VALUES (?, ?, ?, ?, ?, ?)"""
     db.execute(sql, [status, diet, snack, greetings, event_id, user_id])
 
 def get_rsvp(event_id, user_id):
-    sql = """SELECT status, diet, snack, greetings, event_id, user_id 
+    sql = """SELECT status, diet, snack, greetings, event_id, user_id
              FROM rsvps WHERE event_id = ? AND user_id = ?"""
     result = db.query(sql, [event_id, user_id])
     return result[0] if result else None
 
 def get_rsvps_by_event(event_id):
-    sql = """SELECT 
+    sql = """SELECT
                 r.status, 
                 r.diet, 
                 r.snack, 
