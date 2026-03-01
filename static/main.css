@@ -39,7 +39,7 @@ h3 {
     font-weight: 800;
 }
 
-p, input{
+p, input, textarea {
     color: #2f2475; /* Dark Blue */
     font-size: 1em;
 }
