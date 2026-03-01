@@ -20,20 +20,28 @@ def get_event(event_id):
     return result[0] if result else None
 
 def get_events():
-    sql = """SELECT id, title, type, location, description, start_time, end_time, user_id FROM events"""
+    sql = """SELECT id, title, type, location, 
+                    description, start_time, end_time, user_id 
+             FROM events"""
     result = db.query(sql)
     return result
 
 def get_events_by_organizer(user_id):
-    sql = """SELECT id, title, type, location, description, start_time, end_time, user_id FROM events WHERE user_id = ?"""
+    sql = """SELECT id, title, type, location, description, start_time, end_time, user_id 
+             FROM events 
+             WHERE user_id = ?"""
     result = db.query(sql, [user_id])
     return result
 
 def search(query):
     sql = """SELECT id, title, type, location, description, start_time, end_time, user_id
              FROM events
-             WHERE title LIKE ?"""
-    result = db.query(sql, ["%" + query + "%"])
+             WHERE
+                title LIKE ?
+                OR description LIKE ?
+                OR location LIKE ?
+             """
+    result = db.query(sql, ["%" + query + "%", "%" + query + "%", "%" + query + "%"])
     return result
 
 def delete_event(event_id):
