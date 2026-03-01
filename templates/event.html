@@ -12,7 +12,7 @@
     <a href="/user/{{ event.user_id }}">{{ organizer.username }}</a>
   </p>
   <h3>event description</h3>
-  <p>{{ event.description }}</p>
+  <p>{{ event.description | show_lines }}</p>
   <h3>RSVPs</h3>
   {% if attendees == [] %}
   <p> No responses yet </p>
@@ -30,7 +30,7 @@
   {% endif %}
   <ul>
     {% for s in snacks %}
-    <li>{{s.snack}}</li>
+    <li>{{s.snack | show_lines}}</li>
     {% endfor %}
   </ul>
   <h3>Dietary needs and preferences to consider</h3>
@@ -39,7 +39,7 @@
   {% endif %}
   <ul>
     {% for d in diets %}
-    <li>{{d.diet}}</li>
+    <li>{{d.diet | show_lines}}</li>
     {% endfor %}
   </ul>  
 </div>
@@ -59,9 +59,9 @@
   <h4>{{ r.username }}</h4>
   <ul>
     <li>status: {{ r.status }}</li>
-    <li>bringing: {{ r.snack }}</li>
-    <li>dietary requirements: {{ r.diet }}</li>
-    <li>greetings: {{ r.greetings }}</li>
+    <li>bringing: {{ r.snack | show_lines }}</li>
+    <li>dietary requirements: {{ r.diet | show_lines }}</li>
+    <li>greetings: {{ r.greetings | show_lines }}</li>
   </ul>
   {% endfor %}
 </div>
