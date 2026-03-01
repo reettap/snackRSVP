@@ -89,21 +89,27 @@ def get_rsvps_by_event(event_id):
 def get_snacks_by_event(event_id):
     sql = """SELECT snack
              FROM rsvps
-             WHERE event_id = ?"""
+             WHERE 
+                event_id = ?
+                AND status = 'yes'"""
     result = db.query(sql, [event_id])
     return result
 
 def get_diets_by_event(event_id):
     sql = """SELECT diet
              FROM rsvps
-             WHERE event_id = ?"""
+             WHERE 
+                event_id = ?
+                AND status = 'yes'"""
     result = db.query(sql, [event_id])
     return result
 
 def get_attendees_by_event(event_id):
     sql = """SELECT DISTINCT u.username
              FROM rsvps as r JOIN users as u  ON u.id = r.user_id
-             WHERE r.event_id = ?"""
+             WHERE 
+                event_id = ?
+                AND status = 'yes'"""
     result = db.query(sql, [event_id])
     return result
 
@@ -119,5 +125,10 @@ def get_attending_events_for_user(user_id):
 
 def get_event_types():
     sql = """SELECT id, title FROM types"""
+    result = db.query(sql)
+    return result
+
+def get_response_options():
+    sql = """SELECT id, title FROM responses"""
     result = db.query(sql)
     return result

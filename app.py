@@ -62,16 +62,18 @@ def event(event_id):
     snacks = events.get_snacks_by_event(event_id)
     diets = events.get_diets_by_event(event_id)
     responses = events.get_rsvps_by_event(event_id)
+    response_options = events.get_response_options()
 
     if "user_id" in session:
-        rsvp = events.get_rsvp(event["user_id"], session["user_id"])
+        rsvp = events.get_rsvp(event_id, session["user_id"])
     else:
         rsvp = None
 
     return render_template("event.html",
         event=event, organizer=organizer,
         rsvp=rsvp, attendees=attendees,
-        snacks=snacks, diets=diets, responses=responses)
+        snacks=snacks, diets=diets, 
+        responses=responses, response_options=response_options)
     
 
 @app.route("/delete_event/<int:event_id>", methods=["GET", "POST"])

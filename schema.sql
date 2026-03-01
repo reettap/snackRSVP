@@ -17,7 +17,7 @@ CREATE TABLE events (
 
 CREATE TABLE rsvps (
     id INTEGER PRIMARY KEY,
-    status INTEGER,
+    status TEXT,
     diet TEXT,
     snack TEXT,
     greetings TEXT,
@@ -26,6 +26,11 @@ CREATE TABLE rsvps (
 );
 
 CREATE TABLE types (
+    id INTEGER PRIMARY KEY,
+    title TEXT
+);
+
+CREATE TABLE responses (
     id INTEGER PRIMARY KEY,
     title TEXT
 );

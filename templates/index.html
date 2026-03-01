@@ -2,12 +2,13 @@
 {% import 'list.html' as list %}
 
 {% block content %}
-{% if session.username %}
-<h2>
-  Welcome to snackRSVP {{ session.username }}!
-</h2>
-{% else %}
+
 <div class="card">
+  {% if session.username %}
+  <h2>
+    Welcome to snackRSVP {{ session.username }}!
+  </h2>
+  {% else %}
   <h2>Welcome to snackRSVP!</h2>
   <p>
     <a href="/login" class="button">log in</a>
@@ -15,8 +16,8 @@
     <a href="/register" class="button">register</a>
     to create events and RSVP!
   </p>
+  {% endif %}
 </div>
-{% endif %}
 
 {{ list.events_list(events) }}
 
