@@ -7,3 +7,4 @@ INSERT INTO types (title) VALUES ("professional");
 INSERT INTO types (title) VALUES ("nature");
 INSERT INTO types (title) VALUES ("sports");
 INSERT INTO types (title) VALUES ("food");
+INSERT INTO types (title) VALUES ("other");

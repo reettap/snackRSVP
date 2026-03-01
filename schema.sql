@@ -7,6 +7,7 @@ CREATE TABLE users (
 CREATE TABLE events (
     id INTEGER PRIMARY KEY,
     title TEXT,
+    type TEXT,
     location TEXT,
     description TEXT,
     start_time TIMESTAMP,
@@ -27,9 +28,4 @@ CREATE TABLE rsvps (
 CREATE TABLE types (
     id INTEGER PRIMARY KEY,
     title TEXT
-);
-
-CREATE TABLE event_types (
-    id INTEGER PRIMARY KEY,
-    event_id INTEGER REFERENCES events
 );

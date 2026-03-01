@@ -34,11 +34,13 @@ def my_events():
 @app.route("/new_event", methods=["GET", "POST"])
 def new_event():
     if request.method == "GET":
-        return render_template("new_event.html")
+        event_types = events.get_event_types()
+        return render_template("new_event.html", event_types=event_types)
 
     if request.method == "POST":
         check_csrf()
         title = request.form["title"]
+        event_type = request.form["type"]
         location = request.form["location"]
         description = request.form["description"]
         start_time = request.form["start_time"]
@@ -46,7 +48,7 @@ def new_event():
         user_id = session["user_id"]
 
         event_id = events.add_event(
-                            title, location, description,
+                            title, event_type, location, description,
                             start_time, end_time, user_id)
         return redirect("/event/" + str(event_id))
 
@@ -100,13 +102,15 @@ def edit_event(event_id):
         abort(403)
 
     if request.method == "GET":
-        return render_template("edit_event.html", event=event)
+        event_types = events.get_event_types()
+        return render_template("edit_event.html", event=event, event_types=event_types)
 
     if request.method == "POST":
         check_csrf()
         events.update_event(
             event_id, 
             title=request.form["title"],
+            event_type=request.form["type"],
             location=request.form["location"],
             description=request.form["description"],
             start_time=request.form["start_time"],

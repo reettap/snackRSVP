@@ -9,6 +9,14 @@
     <label for="title">Title:</label> <br />
     <input type="text" name="title" id="title" maxlength="100" required/>
   </div>
+  <fieldset>
+    <legend>Event type:</legend>
+    {% for type in event_types %}
+    <input type="radio" name="type" id="{{ type.title }}" value="{{ type.title }}" checked />
+    <label for="{{ type.title }}">{{ type.title }}</label>
+    <br />
+    {% endfor %}
+  </fieldset>
   <div class="form-group">
     <label for="location">Location:</label> <br />
     <input type="text" name="location" id="location" maxlength="100" required/>
