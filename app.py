@@ -104,11 +104,13 @@ def edit_event(event_id):
 
     if request.method == "POST":
         check_csrf()
-        title = request.form["title"]
         events.update_event(
             event_id, 
             title=request.form["title"],
             location=request.form["location"],
+            description=request.form["description"],
+            start_time=request.form["start_time"],
+            end_time=request.form["end_time"],
         )
 
         return redirect("/event/" + str(event_id))

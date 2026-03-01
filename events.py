@@ -37,15 +37,20 @@ def search(query):
     return result
 
 def delete_event(event_id):
+    sql = "DELETE FROM rsvps WHERE event_id = ?"
+    db.execute(sql, [event_id])
     sql = "DELETE FROM events WHERE id = ?"
     db.execute(sql, [event_id])
 
-def update_event(event_id, title, location):
+def update_event(event_id, title, location, description, start_time, end_time):
     sql = """UPDATE events SET 
                 title = ?, 
-                location = ?
+                location = ?,
+                description = ?,
+                start_time = ?,
+                end_time = ?
             WHERE id = ?"""
-    db.execute(sql, [title, location, event_id])
+    db.execute(sql, [title, location, description, start_time, end_time, event_id])
 
 def add_rsvp(status, diet, snack, greetings, event_id, user_id):
     sql = """INSERT INTO rsvps (status, diet, snack, greetings, event_id, user_id) 
