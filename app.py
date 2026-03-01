@@ -56,11 +56,16 @@ def event(event_id):
     if not event:
         abort(404)
     organizer = users.get_user(event["user_id"])
-    rsvp = events.get_rsvp(event["user_id"], session["user_id"])
     attendees = events.get_attendees_by_event(event_id)
     snacks = events.get_snacks_by_event(event_id)
     diets = events.get_diets_by_event(event_id)
     responses = events.get_rsvps_by_event(event_id)
+
+    if "user_id" in session:
+        rsvp = events.get_rsvp(event["user_id"], session["user_id"])
+    else:
+        rsvp = None
+
     return render_template("event.html",
         event=event, organizer=organizer,
         rsvp=rsvp, attendees=attendees,
